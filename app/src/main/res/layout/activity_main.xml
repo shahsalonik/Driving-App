@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintGuide_percent=".2"
+        android:orientation="vertical" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintGuide_percent=".8"
+        android:orientation="vertical" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/welcome"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/vertical1"
+        app:layout_constraintRight_toRightOf="@id/vertical2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/nextButton"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:textColor="@color/black"
+        android:text="@string/start_driving"
+        android:background="@color/purple_200"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/vertical1"
+        app:layout_constraintRight_toRightOf="@id/vertical2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".85"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/likeButton"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:textColor="@color/black"
+        android:text="@string/view_log"
+        android:background="@color/purple_200"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/vertical1"
+        app:layout_constraintRight_toRightOf="@id/vertical2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".93"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:text="@string/export"
+        android:textSize="13sp"
+        android:textColor="@color/black"
+        android:background="@color/purple_200"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@id/vertical1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".03"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
