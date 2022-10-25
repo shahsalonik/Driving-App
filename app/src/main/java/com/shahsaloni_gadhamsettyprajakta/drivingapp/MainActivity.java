@@ -18,4 +18,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), Driving.class);
         startActivity(intent);
     }
+
+    public void viewLog(View view) {
+        Intent intent = new Intent(getApplicationContext(), Log.class);
+        startActivity(intent);
+    }
 }

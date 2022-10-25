@@ -55,6 +55,7 @@
         android:text="@string/view_log"
         android:background="@color/purple_200"
         android:textSize="11sp"
+        android:onClick="viewLog"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@id/vertical1"
         app:layout_constraintRight_toRightOf="@id/vertical2"
