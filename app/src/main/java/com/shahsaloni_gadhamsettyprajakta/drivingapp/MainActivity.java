@@ -2,7 +2,9 @@ package com.shahsaloni_gadhamsettyprajakta.drivingapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -12,7 +14,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void onClick() {
-
+    public void startDriving(View view) {
+        Intent intent = new Intent(getApplicationContext(), Driving.class);
+        startActivity(intent);
     }
 }
