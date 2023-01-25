@@ -7,4 +7,12 @@
     <string name="log">45 Hour Log</string>
     <string name="back_text">To go back, hit the button at the bottom of the screen.</string>
     <string name="stop_driving">Stop Driving</string>
+    <string name="date">Date</string>
+    <string name="session_string">Session/Page Number(s)/Skills</string>
+    <string name="total_minutes_driven">Total Minutes Driven</string>
+    <string name="total_mileage">Total Mileage</string>
+    <string name="night_driving_minutes">Night Driving Minutes</string>
+    <string name="signature_string">Parent/Guardian Signature/Comments</string>
+    <string name="log_to_home">Back to Home Screen</string>
+    <string name="_45_hour_log">45-Hour Log</string>
 </resources>
