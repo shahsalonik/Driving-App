@@ -62,17 +62,4 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias=".93"/>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:text="@string/export"
-        android:textSize="13sp"
-        android:textColor="@color/black"
-        android:background="@color/purple_200"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="@id/vertical1"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".03"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

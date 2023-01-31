@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/log_screen">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/horizontal1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintGuide_percent=".07"
+        app:layout_constraintGuide_percent=".13"
         android:orientation="horizontal" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -26,6 +27,21 @@
         app:layout_constraintGuide_percent=".8"
         android:orientation="vertical" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/export_button"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:text="@string/export"
+        android:textSize="13sp"
+        android:textColor="@color/black"
+        android:background="@color/purple_200"
+        android:onClick="shareSheet"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@id/vertical1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".03"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,10 +49,11 @@
         app:layout_constraintTop_toTopOf="parent"
         android:text="@string/_45_hour_log"
         android:gravity="center_horizontal"
-        android:textSize="35dp"
+        android:textSize="35sp"
         android:textColor="@color/black"/>
 
     <TableLayout
+        android:id="@+id/log_table"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
