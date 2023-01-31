@@ -6,6 +6,13 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontal1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintGuide_percent=".07"
+        android:orientation="horizontal" />
+
+    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/vertical1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,45 +27,83 @@
         android:orientation="vertical" />
 
     <TextView
-        android:id="@+id/menu_intro"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:gravity="center"
-        android:text="@string/log"
-        android:textColor="@color/black"
-        android:textSize="30sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ListView
-        android:id="@+id/listview"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/menu_intro"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
-
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="LOG SCREEN"
-        android:textSize="30sp"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="@id/vertical1"
-        app:layout_constraintRight_toRightOf="@id/vertical2"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@id/horizontal1"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/_45_hour_log"
+        android:gravity="center_horizontal"
+        android:textSize="35dp"
+        android:textColor="@color/black"/>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/horizontal1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <TableRow
+            android:background="@color/teal_200"
+            android:layout_width="0dp">
+            <TextView
+                android:layout_height="wrap_content"
+                android:text="@string/date"
+                android:padding="10dp"
+                android:textSize="10sp"
+                android:gravity="center_horizontal"
+                tools:ignore="SmallSp" />
+            <TextView
+                android:layout_height="wrap_content"
+                android:text="@string/session_string"
+                android:padding="10sp"
+                android:textSize="10sp"
+                android:layout_weight="4"
+                android:gravity="center_horizontal"
+                tools:ignore="SmallSp" />
+            <TextView
+                android:layout_height="wrap_content"
+                android:text="@string/total_minutes_driven"
+                android:padding="10sp"
+                android:textSize="10sp"
+                android:layout_weight="3"
+                android:gravity="center_horizontal"
+                tools:ignore="SmallSp" />
+            <TextView
+                android:layout_height="wrap_content"
+                android:text="@string/total_mileage"
+                android:padding="10sp"
+                android:textSize="10sp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                tools:ignore="SmallSp" />
+            <TextView
+                android:layout_height="wrap_content"
+                android:text="@string/night_driving_minutes"
+                android:padding="10sp"
+                android:textSize="10sp"
+                android:layout_weight="3"
+                android:gravity="center_horizontal"
+                tools:ignore="SmallSp" />
+            <TextView
+                android:layout_height="wrap_content"
+                android:text="@string/signature_string"
+                android:padding="10sp"
+                android:textSize="10sp"
+                android:layout_weight="5"
+                android:gravity="center_horizontal"
+                tools:ignore="SmallSp" />
+        </TableRow>
+
+    </TableLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/viewLogButton"
         android:layout_width="100dp"
         android:layout_height="40dp"
         android:textColor="@color/black"
-        android:text="Back to Home Screen"
+        android:text="@string/log_to_home"
         android:background="@color/purple_200"
         android:textSize="11sp"
         android:onClick="back"
