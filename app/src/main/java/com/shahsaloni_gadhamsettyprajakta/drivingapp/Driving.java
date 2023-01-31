@@ -20,6 +20,8 @@ public class Driving extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.driving);
+
+        chronometer = findViewById(R.id.chronometer);
     }
 
     public void stopDriving(View view) {

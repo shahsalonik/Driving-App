@@ -33,25 +33,11 @@
         app:layout_constraintRight_toRightOf="@id/vertical2"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/nextButton"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:textColor="@color/black"
-        android:text="@string/stop_driving"
-        android:background="@color/purple_200"
-        android:onClick="stopDriving"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="@id/vertical1"
-        app:layout_constraintRight_toRightOf="@id/vertical2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".95"/>
-
     <Chronometer
         android:id="@+id/chronometer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="50sp"
+        android:textSize="30sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="@id/vertical1"
         app:layout_constraintRight_toRightOf="@id/vertical2"/>
@@ -80,4 +66,17 @@
         app:layout_constraintVertical_bias=".95"
         android:onClick="pauseChronometer"/>
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/nextButton"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:textColor="@color/black"
+        android:text="@string/stop_driving"
+        android:background="@color/purple_200"
+        android:onClick="stopDriving"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/vertical1"
+        app:layout_constraintRight_toRightOf="@id/vertical2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".95"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
