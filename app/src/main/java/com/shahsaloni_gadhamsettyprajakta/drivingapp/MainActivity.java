@@ -20,40 +20,10 @@ import android.widget.Chronometer;
 
 public class MainActivity extends AppCompatActivity {
 
-        Chronometer chronometer;
-        ButtonBarLayout start, pause;
-        long pauseOffset;
-        boolean running;
-
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
-            chronometer = (Chronometer) findViewById(R.id.chronometer);
-            start = (ButtonBarLayout) findViewById(R.id.start_button);
-            pause = (ButtonBarLayout) findViewById(R.id.pause_button);
-
-            start.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                            if (!running) {
-                                    chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
-                                    chronometer.start();
-                                    running = true;
-                            }
-                    }
-            });
-
-            pause.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                            if (running) {
-                                    chronometer.stop();
-                                    pauseOffset = SystemClock.elapsedRealtime() - chronometer.getBase();
-                                    running = false;
-                            }
-                    }
-            });
         }
 
         public void startDriving(View view) {
