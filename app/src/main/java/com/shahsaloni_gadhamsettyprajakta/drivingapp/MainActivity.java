@@ -25,17 +25,14 @@ import android.widget.Chronometer;
 
 public class MainActivity extends AppCompatActivity {
 
-        Button exportLog;
         RelativeLayout logScreen;
         TableLayout tableLayout;
-
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
 
-            exportLog = findViewById(R.id.export_button);
             logScreen = findViewById(R.id.log_screen);
             tableLayout = (TableLayout) findViewById(R.id.log_table);
 
@@ -49,5 +46,14 @@ public class MainActivity extends AppCompatActivity {
         public void viewLog(View view) {
                 Intent intent = new Intent(getApplicationContext(), Log.class);
                 startActivity(intent);
+        }
+
+        public void shareSheet(View view) {
+            //Bitmap bitmap = Bitmap.createBitmap(logScreen.getWidth(), logScreen.getHeight(), Bitmap.Config.ARGB_8888);
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            //shareIntent.putExtra(Intent.EXTRA_STREAM, bitmap);
+            shareIntent.setType("application/pdf");
+            startActivity(Intent.createChooser(shareIntent, null));
         }
 }
