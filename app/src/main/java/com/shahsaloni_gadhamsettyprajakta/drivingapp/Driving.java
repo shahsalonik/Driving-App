@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 public class Driving extends Activity {
     private Chronometer chronometer;
     private long pauseOffset;
-    private boolean running;
+    public boolean running;
 
 
 
