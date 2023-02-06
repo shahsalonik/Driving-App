@@ -42,6 +42,16 @@
         app:layout_constraintLeft_toLeftOf="@id/vertical1"
         app:layout_constraintRight_toRightOf="@id/vertical2"/>
 
+    <TextView
+        android:id="@+id/mileage"
+        android:text="Miles Driven: 0.0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        app:layout_constraintTop_toBottomOf="@id/chronometer"
+        app:layout_constraintLeft_toLeftOf="@id/vertical1"
+        app:layout_constraintRight_toRightOf="@id/vertical2"/>
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/start_button"
         android:layout_width="wrap_content"

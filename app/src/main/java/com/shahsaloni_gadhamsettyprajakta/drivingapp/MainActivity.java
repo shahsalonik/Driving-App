@@ -1,27 +1,20 @@
 package com.shahsaloni_gadhamsettyprajakta.drivingapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.ButtonBarLayout;
 
-import android.annotation.TargetApi;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.os.SystemClock;
+
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RatingBar;
+
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Chronometer;
+
+import com.shahsaloni_gadhamsettyprajakta.drivingapp.viewRenderer.AbstractViewRenderer;
+
+import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,16 +37,53 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public void viewLog(View view) {
-                Intent intent = new Intent(getApplicationContext(), Log.class);
+                Intent intent = new Intent(getApplicationContext(), LogFile.class);
                 startActivity(intent);
         }
 
         public void shareSheet(View view) {
-            //Bitmap bitmap = Bitmap.createBitmap(logScreen.getWidth(), logScreen.getHeight(), Bitmap.Config.ARGB_8888);
-            Intent shareIntent = new Intent();
-            shareIntent.setAction(Intent.ACTION_SEND);
-            //shareIntent.putExtra(Intent.EXTRA_STREAM, bitmap);
-            shareIntent.setType("application/pdf");
-            startActivity(Intent.createChooser(shareIntent, null));
+            AbstractViewRenderer page = new AbstractViewRenderer(getApplicationContext(), R.layout.log) {
+                private String _text;
+
+                public void setText(String text) {
+                    _text = text;
+                }
+
+                @Override
+                protected void initView(View view) {
+                    TextView tv_hello = (TextView) view.findViewById(R.id.tv_hello);
+                    tv_hello.setText(_text);
+                }
+            };
+
+            page.setReuseBitmap(true);
+
+            PdfDocument doc = new PdfDocument(getApplicationContext());
+
+            // add as many pages as you have
+            doc.addPage(page);
+
+            doc.setRenderWidth(2115);
+            doc.setRenderHeight(1500);
+            doc.setOrientation(PdfDocument.A4_MODE.LANDSCAPE);
+            doc.setProgressTitle(R.string.gen_please_wait);
+            doc.setProgressMessage(R.string.gen_pdf_file);
+            doc.setFileName("test");
+            doc.setSaveDirectory(getApplicationContext().getExternalFilesDir(null));
+            doc.setInflateOnMainThread(false);
+            doc.setListener(new PdfDocument.Callback() {
+                @Override
+                public void onComplete(File file) {
+                    Log.i(PdfDocument.TAG_PDF_MY_XML, "Complete");
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    Log.i(PdfDocument.TAG_PDF_MY_XML, "Error");
+                }
+            });
+
+            doc.createPdf(getApplicationContext());
+
         }
 }

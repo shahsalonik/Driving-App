@@ -15,4 +15,6 @@
     <string name="signature_string">Parent/Guardian Signature/Comments</string>
     <string name="log_to_home">Back to Home Screen</string>
     <string name="_45_hour_log">45-Hour Log</string>
+    <string name="gen_please_wait">Please Wait</string>
+    <string name="gen_pdf_file">Creating File...</string>
 </resources>

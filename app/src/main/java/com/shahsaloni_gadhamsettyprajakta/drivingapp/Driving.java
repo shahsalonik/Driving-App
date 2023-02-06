@@ -1,20 +1,22 @@
 package com.shahsaloni_gadhamsettyprajakta.drivingapp;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
 import android.widget.Chronometer;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Driving extends Activity {
     private Chronometer chronometer;
     private long pauseOffset;
     public boolean running;
-
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

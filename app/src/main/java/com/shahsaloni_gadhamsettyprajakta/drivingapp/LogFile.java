@@ -10,10 +10,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-public class Log extends Activity {
+import com.shahsaloni_gadhamsettyprajakta.drivingapp.viewRenderer.AbstractViewRenderer;
+
+public class LogFile extends Activity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

@@ -50,7 +50,7 @@ public class PdfDocument implements IDisposable{
     // inflate on main thread
     private boolean                             _inflateOnMainThread    = true;
     // progress dialog
-    private ProgressDialog                      _ringProgressDialog;
+    //private ProgressDialog                      _ringProgressDialog;
     // progress dialog message
     private String                              _txtProgressMessage     = "Generating Pdf..";
     // progress dialog title
@@ -113,7 +113,7 @@ public class PdfDocument implements IDisposable{
      *
      * @param page a view renderer instance
      *
-     * @see com.hendrix.pdfmyxml.viewRenderer.AbstractViewRenderer
+     * @see com.shahsaloni_gadhamsettyprajakta.drivingapp.viewRenderer.AbstractViewRenderer
      */
     public void addPage(AbstractViewRenderer page) {
         if(_inflateOnMainThread)
@@ -277,17 +277,6 @@ public class PdfDocument implements IDisposable{
 
         Resources res = _ctx.getResources();
 
-        if (window != null) {
-            if(_ringProgressDialog !=null) {
-                _ringProgressDialog.dismiss();
-            }
-
-            _ringProgressDialog = ProgressDialog.show(window, _txtProgressTitle, _txtProgressMessage, true);
-
-            if(!_ringProgressDialog.isShowing())
-                _ringProgressDialog.show();
-        }
-
         _thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -314,9 +303,6 @@ public class PdfDocument implements IDisposable{
                 _handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        if(_ringProgressDialog !=null)
-                            _ringProgressDialog.dismiss();
-
                         if(_listener != null) {
                             if(_error != null)
                                 _listener.onError(_error);
@@ -343,7 +329,7 @@ public class PdfDocument implements IDisposable{
     /**
      * set a listener for the PDF generation events
      *
-     * @param listener a {@link com.hendrix.pdfmyxml.PdfDocument.Callback}
+     * @param listener a {@link com.shahsaloni_gadhamsettyprajakta.drivingapp.PdfDocument.Callback}
      */
     public void setListener(Callback listener) {
         _listener = listener;
@@ -395,7 +381,7 @@ public class PdfDocument implements IDisposable{
     /**
      * render the view
      *
-     * @param page {@link com.hendrix.pdfmyxml.viewRenderer.AbstractViewRenderer} instance
+     * @param page {@link com.shahsaloni_gadhamsettyprajakta.drivingapp.viewRenderer.AbstractViewRenderer} instance
      */
     private void renderView(AbstractViewRenderer page) {
         page.attachContext(_ctx);
@@ -425,10 +411,6 @@ public class PdfDocument implements IDisposable{
         file_name   = null;
         file        = null;
 
-        if(_ringProgressDialog != null) {
-            _ringProgressDialog.dismiss();
-            _ringProgressDialog = null;
-        }
     }
 
     /**
@@ -441,7 +423,6 @@ public class PdfDocument implements IDisposable{
         _listener = null;
         _handler = null;
         _thread = null;
-        _ringProgressDialog = null;
     }
 
     /**
@@ -473,9 +454,9 @@ public class PdfDocument implements IDisposable{
         }
 
         /**
-         * create the pdf document instance. afterwards, use {@link com.hendrix.pdfmyxml.PdfDocument#createPdf(Context)}
+         * create the pdf document instance. afterwards, use {@link com.shahsaloni_gadhamsettyprajakta.drivingapp.PdfDocument#createPdf(Context)}
          *
-         * @return a {@link com.hendrix.pdfmyxml.PdfDocument}
+         * @return a {@link com.shahsaloni_gadhamsettyprajakta.drivingapp.PdfDocument}
          */
         public PdfDocument create() {
             return _doc;
@@ -486,7 +467,7 @@ public class PdfDocument implements IDisposable{
          *
          * @param page a view renderer instance
          *
-         * @see com.hendrix.pdfmyxml.viewRenderer.AbstractViewRenderer
+         * @see com.shahsaloni_gadhamsettyprajakta.drivingapp.viewRenderer.AbstractViewRenderer
          */
         public Builder addPage(AbstractViewRenderer page) {
             _doc.addPage(page);
@@ -570,7 +551,7 @@ public class PdfDocument implements IDisposable{
         /**
          * set a listener for the PDF generation events
          *
-         * @param listener a {@link com.hendrix.pdfmyxml.PdfDocument.Callback}
+         * @param listener a {@link com.shahsaloni_gadhamsettyprajakta.drivingapp.PdfDocument.Callback}
          */
         public Builder listener(Callback listener) {
             _doc.setListener(listener);
