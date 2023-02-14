@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="#FFF6BD">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/vertical1"
@@ -35,8 +36,8 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/nextButton"
-        android:layout_width="150dp"
-        android:layout_height="40dp"
+        android:layout_width="150sp"
+        android:layout_height="70dp"
         android:textColor="@color/black"
         android:text="@string/start_driving"
         android:background="@color/purple_200"
@@ -45,7 +46,9 @@
         app:layout_constraintLeft_toLeftOf="@id/vertical1"
         app:layout_constraintRight_toRightOf="@id/vertical2"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".85"/>
+        app:layout_constraintVertical_bias=".75"
+        android:backgroundTint="#FFD4B2"
+        />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/viewLogButton"
@@ -60,7 +63,9 @@
         app:layout_constraintLeft_toLeftOf="@id/vertical1"
         app:layout_constraintRight_toRightOf="@id/vertical2"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".93"/>
+        app:layout_constraintVertical_bias=".88"
+        android:backgroundTint="#FFD4B2"
+        />
 
 
     <androidx.appcompat.widget.AppCompatButton
@@ -76,6 +81,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="@id/vertical1"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".03"/>
+        app:layout_constraintVertical_bias=".03"
+        android:backgroundTint="#FFD4B2"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/praja/AndroidStudioProjects/Driving-App/app/src/main/res/font/humble_font.xml" value="0.1" />
+        <entry key="..\:/Users/praja/AndroidStudioProjects/Driving-App/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/praja/AndroidStudioProjects/Driving-App/app/src/main/res/layout/driving.xml" value="0.22" />
+        <entry key="..\:/Users/praja/AndroidStudioProjects/Driving-App/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1255" />
+        <entry key="..\:/Users/praja/AndroidStudioProjects/Driving-App/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.20973127666985894" />
         <entry key="app/src/main/res/layout/driving.xml" value="0.1" />
         <entry key="app/src/main/res/layout/log.xml" value="0.25" />
