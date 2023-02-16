@@ -42,6 +42,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public void shareSheet(View view) {
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.setType("application/pdf");
+            startActivity(Intent.createChooser(shareIntent, null));
+        }
+
+        /*
+        public void shareSheet(View view) {
             AbstractViewRenderer page = new AbstractViewRenderer(getApplicationContext(), R.layout.log) {
                 private String _text;
 
@@ -86,4 +94,5 @@ public class MainActivity extends AppCompatActivity {
             doc.createPdf(getApplicationContext());
 
         }
+        */
 }

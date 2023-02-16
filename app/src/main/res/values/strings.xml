@@ -17,4 +17,5 @@
     <string name="_45_hour_log">45-Hour Log</string>
     <string name="gen_please_wait">Please Wait</string>
     <string name="gen_pdf_file">Creating File...</string>
+    <string name="miles">Miles Driven: 0.0</string>
 </resources>

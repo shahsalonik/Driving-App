@@ -125,7 +125,7 @@
                 tools:ignore="SmallSp" />
             <TextView
                 android:layout_height="wrap_content"
-                android:text="0.3"
+                android:text="@string/total_mileage"
                 android:padding="10sp"
                 android:textSize="10sp"
                 android:layout_weight="1"
