@@ -30,7 +30,7 @@
                 android:value=".MainActivity"/>
         </activity>
         <activity
-            android:name=".Log"
+            android:name=".LogFile"
             android:label="Log Screen"
             android:parentActivityName=".MainActivity">
             <meta-data
