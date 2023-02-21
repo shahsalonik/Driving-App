@@ -6,6 +6,7 @@
     tools:context=".Driving"
     android:layout_height="match_parent">
 
+
     <com.mapbox.maps.MapView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -16,9 +17,8 @@
         app:layout_constraintTop_toBottomOf="@+id/mileage"
         app:layout_constraintBottom_toTopOf="@+id/nextButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/vertical1"
@@ -102,6 +102,5 @@
         app:layout_constraintLeft_toLeftOf="@id/vertical1"
         app:layout_constraintRight_toRightOf="@id/vertical2"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".95"/>
         app:layout_constraintVertical_bias=".95"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

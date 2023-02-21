@@ -1,27 +1,27 @@
 package com.shahsaloni_gadhamsettyprajakta.drivingapp;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
 import android.widget.Chronometer;
-import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LifecycleRegistry;
 
 import com.mapbox.maps.MapView;
 import com.mapbox.maps.Style;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
-public class Driving extends Activity {
+public class Driving extends Activity implements LifecycleOwner {
     private Chronometer chronometer;
     private long pauseOffset;
     public boolean running;
     public MapView mapview;
+    private final LifecycleRegistry lifecycleRegistry = new LifecycleRegistry (this);
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,4 +55,9 @@ public class Driving extends Activity {
         }
     }
 
+    @NonNull
+    @Override
+    public Lifecycle getLifecycle() {
+        return lifecycleRegistry;
+    }
 }
