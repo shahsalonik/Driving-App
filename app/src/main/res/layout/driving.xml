@@ -34,19 +34,6 @@
         app:layout_constraintGuide_percent=".8"
         android:orientation="vertical" />
 
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="DRIVING SCREEN"
-        android:textSize="30sp"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="@id/vertical1"
-        app:layout_constraintRight_toRightOf="@id/vertical2"
-        app:layout_constraintTop_toTopOf="parent"/>
-
     <Chronometer
         android:id="@+id/chronometer"
         android:layout_width="wrap_content"
