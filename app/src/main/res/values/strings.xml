@@ -18,4 +18,5 @@
     <string name="gen_please_wait">Please Wait</string>
     <string name="gen_pdf_file">Creating File...</string>
     <string name="miles">Miles Driven: 0.0</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoibGF2bmRyMTAzIiwiYSI6ImNsZWFmYmk5MTBmZm8zdWxlanloNmF1OXAifQ.3-jS8kgahe2hW51pKIrgpg</string>
 </resources>

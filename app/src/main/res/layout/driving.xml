@@ -6,6 +6,27 @@
     tools:context=".Driving"
     android:layout_height="match_parent">
 
+
+    <com.mapbox.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/mileage"
+        app:layout_constraintBottom_toTopOf="@+id/nextButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" >
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/location_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/purple_500"
+            android:tint="@color/white"
+            tools:ignore="MissingConstraints" />
+    </com.mapbox.maps.MapView>
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/vertical1"
         android:layout_width="match_parent"
@@ -19,19 +40,6 @@
         android:layout_height="match_parent"
         app:layout_constraintGuide_percent=".8"
         android:orientation="vertical" />
-
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="DRIVING SCREEN"
-        android:textSize="30sp"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="@id/vertical1"
-        app:layout_constraintRight_toRightOf="@id/vertical2"
-        app:layout_constraintTop_toTopOf="parent"/>
 
     <Chronometer
         android:id="@+id/chronometer"
