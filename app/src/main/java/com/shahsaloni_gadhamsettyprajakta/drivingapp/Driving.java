@@ -13,6 +13,10 @@ import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LifecycleRegistry;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+
 import com.mapbox.maps.MapView;
 import com.mapbox.maps.Style;
 
@@ -21,6 +25,7 @@ public class Driving extends Activity implements LifecycleOwner {
     private long pauseOffset;
     public boolean running;
     public MapView mapview;
+
     private final LifecycleRegistry lifecycleRegistry = new LifecycleRegistry (this);
 
     @Override
