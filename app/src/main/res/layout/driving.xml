@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     tools:context=".Driving"
+    android:background="#FFF6BD"
     android:layout_height="match_parent">
-
 
     <com.mapbox.maps.MapView
         android:id="@+id/mapView"
@@ -15,16 +15,6 @@
         app:layout_constraintBottom_toTopOf="@+id/nextButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" >
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/location_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:layout_margin="10dp"
-            android:backgroundTint="@color/purple_500"
-            android:tint="@color/white"
-            tools:ignore="MissingConstraints" />
     </com.mapbox.maps.MapView>
 
     <androidx.constraintlayout.widget.Guideline
