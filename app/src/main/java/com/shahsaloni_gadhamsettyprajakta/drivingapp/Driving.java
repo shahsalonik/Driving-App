@@ -15,6 +15,7 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.Chronometer;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -46,6 +47,8 @@ public class Driving extends FragmentActivity implements OnMapReadyCallback {
     private Chronometer chronometer;
     private long pauseOffset;
     public boolean running;
+    private double totalMiles;
+    //TextView mileage = findViewById(R.id.mileage);
 
     private static final String TAG = Driving.class.getSimpleName();
     private CameraPosition cameraPosition;
@@ -56,6 +59,7 @@ public class Driving extends FragmentActivity implements OnMapReadyCallback {
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean locationPermissionGranted;
     private final LatLng defaultLocation = new LatLng(-33.8523341, 151.2106085);
+    private LatLng currentLatLng;
     private static final int DEFAULT_ZOOM = 20;
     private Location lastKnownLocation, location;
     private static final String KEY_CAMERA_POSITION = "camera_position";
@@ -74,10 +78,48 @@ public class Driving extends FragmentActivity implements OnMapReadyCallback {
         if (savedInstanceState != null) {
             lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
             cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
-
-            //map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10.2f));
+            //double currentLat = lastKnownLocation.getLatitude();
+            //double currentLong = lastKnownLocation.getLongitude();
+            //currentLatLng = new LatLng(currentLat, currentLong);
+            //locationListener.onLocationChanged(lastKnownLocation);
         }
     }
+
+    /*LocationListener locationListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(@NonNull Location location) {
+            double newLat = location.getLatitude();
+            double newLong = location.getLongitude();
+            double oldLat = currentLatLng.latitude;
+            double oldLong = currentLatLng.longitude;
+            double miles = Math.abs(distance(newLat, newLong, oldLat, oldLong));
+            totalMiles += miles;
+            //mileage.setText("" + totalMiles);
+            currentLatLng = new LatLng(newLat, newLong);
+        }
+    };
+
+    private double distance(double lat1, double lon1, double lat2, double lon2) {
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1))
+                * Math.sin(deg2rad(lat2))
+                + Math.cos(deg2rad(lat1))
+                * Math.cos(deg2rad(lat2))
+                * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+        return (dist);
+    }
+
+    private double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
+    private double rad2deg(double rad) {
+        return (rad * 180.0 / Math.PI);
+    }*/
+
 
     private void updateLocationUI() {
         if (map == null) {
@@ -97,7 +139,7 @@ public class Driving extends FragmentActivity implements OnMapReadyCallback {
                 lastKnownLocation = null;
                 getLocationPermission();
             }
-        } catch (SecurityException e)  {
+        } catch (SecurityException e) {
             Log.e("Exception: %s", e.getMessage());
         }
     }
@@ -109,6 +151,16 @@ public class Driving extends FragmentActivity implements OnMapReadyCallback {
          */
         try {
             if (locationPermissionGranted) {
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
                 Task<Location> locationResult = fusedLocationProviderClient.getLastLocation();
                 locationResult.addOnCompleteListener(this, new OnCompleteListener<Location>() {
                     @Override
