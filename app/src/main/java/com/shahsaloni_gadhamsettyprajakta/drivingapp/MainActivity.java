@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
 
             logScreen = findViewById(R.id.log_screen);
             tableLayout = (TableLayout) findViewById(R.id.log_table);
-
         }
 
         public void startDriving(View view) {
@@ -38,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
 
         public void viewLog(View view) {
                 Intent intent = new Intent(getApplicationContext(), LogFile.class);
+                String extra = getIntent().getStringExtra("extra");
+                System.out.println(extra);
+                intent.putExtra("time", extra);
                 startActivity(intent);
         }
 

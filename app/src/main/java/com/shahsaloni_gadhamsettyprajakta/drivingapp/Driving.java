@@ -4,6 +4,7 @@ import static com.google.android.gms.maps.MapsInitializer.Renderer.*;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -15,14 +16,18 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.Chronometer;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.autofill.inline.Renderer;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Lifecycle;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -41,14 +46,28 @@ import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.net.PlacesClient;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Driving extends FragmentActivity implements OnMapReadyCallback {
     private Chronometer chronometer;
     private long pauseOffset;
     public boolean running;
     private double totalMiles;
-    //TextView mileage = findViewById(R.id.mileage);
+    TextView mileage;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+    public TextView testView;
+    private AppCompatButton stopDriving;
+
+    static List<String> dataList = new ArrayList<>();
+
+    String SHAREDPREF_TAG = "com.shahsaloni_gadhamsettyprajakta.drivingapp";
 
     private static final String TAG = Driving.class.getSimpleName();
     private CameraPosition cameraPosition;
@@ -65,11 +84,23 @@ public class Driving extends FragmentActivity implements OnMapReadyCallback {
     private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
 
+    LinearLayout linearLayout;
+    int id = 1;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.driving);
         chronometer = findViewById(R.id.chronometer);
+        sharedPreferences = getSharedPreferences(SHAREDPREF_TAG, MODE_PRIVATE);
+
+        testView = findViewById(R.id.test_input);
+        mileage = findViewById(R.id.mileage);
+
+        stopDriving = findViewById(R.id.nextButton);
+
+        editor = sharedPreferences.edit();
+        editor.clear();
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         Places.initialize(getApplicationContext(), getString(R.string.map_key));
@@ -119,6 +150,11 @@ public class Driving extends FragmentActivity implements OnMapReadyCallback {
     private double rad2deg(double rad) {
         return (rad * 180.0 / Math.PI);
     }*/
+
+    private void updateLogText() {
+        testView.setText("Test values");
+
+    }
 
 
     private void updateLocationUI() {
@@ -234,10 +270,46 @@ public class Driving extends FragmentActivity implements OnMapReadyCallback {
 
 
     public void stopDriving(View view) {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(intent);
+        Intent intent = new Intent(getApplicationContext(), LogFile.class);
+
+        double elapsedSeconds = (double) (SystemClock.elapsedRealtime() - chronometer.getBase()) / 1000.0;
+        float mins = (float) (elapsedSeconds / 60.0);
+        DecimalFormat df = new DecimalFormat("####.##");
+        String mins_string = df.format(mins);
+        int month = Calendar.getInstance().get(Calendar.MONTH);
+        int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        String date_string =  (month + 1) + "/" + day + "/" + year;
+        intent.putExtra("time", String.valueOf(mins_string));
+        intent.putExtra("date", (month + 1) + "/" + day + "/" + year);
+        intent.putExtra("mileage", String.valueOf(mileage));
+        String final_string = date_string + " " + String.valueOf(mins_string) + " " + String.valueOf(mileage);
+        //String.valueOf(chronometer.getBase())
+        dataList.add(final_string);
+        editor.putString(String.valueOf(id), final_string);
+        editor.apply();
+
+
         chronometer.setBase(SystemClock.elapsedRealtime());
+        startActivity(intent);
         pauseOffset = 0;
+        /*
+        Set<String> stringSet = new HashSet<String>();
+        stringSet.add(String.valueOf(chronometer.getBase()));
+        stringSet.add(String.valueOf(mileage));
+
+        editor.putStringSet("testView", stringSet);
+        editor.apply();
+        updateLogText();
+
+        FrameLayout temp = new FrameLayout(this);
+        linearLayout.addView(temp);
+        temp.setId(id);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(id, new MessageFragment(id), String.valueOf(id));
+        ft.commit();
+        id++;*/
+
     }
 
     public void startChronometer(View view) {
