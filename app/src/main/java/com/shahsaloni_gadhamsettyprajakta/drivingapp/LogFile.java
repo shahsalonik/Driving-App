@@ -27,7 +27,7 @@ public class LogFile extends Activity {
         arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, Driving.dataList);
         listView.setAdapter(arrayAdapter);
         textView = findViewById(R.id.test_input2);
-        textView.setText(getIntent().getStringExtra("date") + " " + getIntent().getStringExtra("time"));
+        //textView.setText(getIntent().getStringExtra("row"));
     }
 
     /*public void add(View view) {
@@ -44,6 +44,14 @@ public class LogFile extends Activity {
     public void back(View view) {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        for(int x = 0; x < Driving.sharedPreferences.getAll().size(); x++) {
+            Driving.dataList.add(x, Driving.sharedPreferences.getString(String.valueOf(x), ""));
+        }
     }
 
 }

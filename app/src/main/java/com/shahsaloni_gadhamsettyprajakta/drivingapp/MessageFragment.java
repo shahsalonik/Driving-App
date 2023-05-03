@@ -40,7 +40,7 @@ public class MessageFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        this.view = view;
+        //this.view = view;
         String date = getArguments().getString("Date", "");
         String session_num = getArguments().getString("Session Number", "");
         String minutes = getArguments().getString("Minutes", "");
@@ -54,7 +54,7 @@ public class MessageFragment extends Fragment {
 
     public static MessageFragment newInstance(String date, String session_num, String minutes, String mileage, String night_mins) {
         Bundle args = new Bundle();
-        MessageFragment fragment = new MessageFragment();
+        MessageFragment fragment = new MessageFragment(date, session_num, minutes, mileage, night_mins);
         args.putString("Date", date);
         args.putString("Session Number", session_num);
         args.putString("Minutes", minutes);

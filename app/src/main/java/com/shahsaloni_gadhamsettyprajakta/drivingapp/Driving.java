@@ -60,7 +60,7 @@ public class Driving extends FragmentActivity implements OnMapReadyCallback {
     public boolean running;
     private double totalMiles;
     TextView mileage;
-    SharedPreferences sharedPreferences;
+    static SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     public TextView testView;
     private AppCompatButton stopDriving;
@@ -279,11 +279,13 @@ public class Driving extends FragmentActivity implements OnMapReadyCallback {
         int month = Calendar.getInstance().get(Calendar.MONTH);
         int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
         int year = Calendar.getInstance().get(Calendar.YEAR);
-        String date_string =  (month + 1) + "/" + day + "/" + year;
-        intent.putExtra("time", String.valueOf(mins_string));
-        intent.putExtra("date", (month + 1) + "/" + day + "/" + year);
-        intent.putExtra("mileage", String.valueOf(mileage));
-        String final_string = date_string + " " + String.valueOf(mins_string) + " " + String.valueOf(mileage);
+        String date_string =  month + "/" + day + "/" + year;
+        //intent.putExtra("time", String.valueOf(mins_string));
+        //intent.putExtra("date", (month + 1) + "/" + day + "/" + year);
+        //intent.putExtra("mileage", String.valueOf(mileage));
+        String mileage_string = (String) mileage.getText().subSequence(14, mileage.getText().length());
+        String final_string = date_string + " " + id + " " + mins_string + " " + mileage_string;
+        intent.putExtra("row", final_string);
         //String.valueOf(chronometer.getBase())
         dataList.add(final_string);
         editor.putString(String.valueOf(id), final_string);
