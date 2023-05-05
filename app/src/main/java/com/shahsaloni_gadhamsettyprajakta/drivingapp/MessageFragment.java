@@ -55,11 +55,8 @@ public class MessageFragment extends Fragment {
     public static MessageFragment newInstance(String date, String session_num, String minutes, String mileage, String night_mins) {
         Bundle args = new Bundle();
         MessageFragment fragment = new MessageFragment(date, session_num, minutes, mileage, night_mins);
-        args.putString("Date", date);
-        args.putString("Session Number", session_num);
-        args.putString("Minutes", minutes);
-        args.putString("Mileage", mileage);
-        args.putString("Night Minutes", night_mins);
+        String final_string = date + "\t" + session_num + "\t" + minutes + "\t" + mileage;
+        args.putString("Info", final_string);
         fragment.setArguments(args);
         return fragment;
     }

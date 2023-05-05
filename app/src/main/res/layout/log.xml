@@ -75,7 +75,6 @@
         app:layout_constraintTop_toBottomOf="@id/test_input"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    //REMOVE IN THE FUTURE
     <TableLayout
         android:id="@+id/log_table"
         android:layout_width="match_parent"
@@ -93,22 +92,22 @@
                 android:layout_height="wrap_content"
                 android:text="@string/date"
                 android:padding="10dp"
-                android:textSize="10sp"
+                android:textSize="15sp"
                 android:gravity="center_horizontal"
                 tools:ignore="SmallSp" />
             <TextView
                 android:layout_height="wrap_content"
                 android:text="@string/session_string"
                 android:padding="10sp"
-                android:textSize="10sp"
+                android:textSize="15sp"
                 android:layout_weight="4"
-                android:gravity="center_horizontal"
+                android:gravity="center"
                 tools:ignore="SmallSp" />
             <TextView
                 android:layout_height="wrap_content"
                 android:text="@string/total_minutes_driven"
                 android:padding="10sp"
-                android:textSize="10sp"
+                android:textSize="15sp"
                 android:layout_weight="3"
                 android:gravity="center_horizontal"
                 tools:ignore="SmallSp" />
@@ -116,18 +115,20 @@
                 android:layout_height="wrap_content"
                 android:text="@string/total_mileage"
                 android:padding="10sp"
-                android:textSize="10sp"
+                android:textSize="15sp"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 tools:ignore="SmallSp" />
+            <!--
             <TextView
                 android:layout_height="wrap_content"
                 android:text="@string/night_driving_minutes"
                 android:padding="10sp"
-                android:textSize="10sp"
+                android:textSize="15sp"
                 android:layout_weight="3"
                 android:gravity="center_horizontal"
                 tools:ignore="SmallSp" />
+
             <TextView
                 android:layout_height="wrap_content"
                 android:text="@string/signature_string"
@@ -135,7 +136,7 @@
                 android:textSize="10sp"
                 android:layout_weight="5"
                 android:gravity="center_horizontal"
-                tools:ignore="SmallSp" />
+                tools:ignore="SmallSp" />-->
         </TableRow>
     </TableLayout>
 

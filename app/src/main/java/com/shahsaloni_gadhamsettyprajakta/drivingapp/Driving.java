@@ -101,6 +101,11 @@ public class Driving extends FragmentActivity implements OnMapReadyCallback {
 
         editor = sharedPreferences.edit();
         editor.clear();
+        if (!running) {
+            chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
+            chronometer.start();
+            running = true;
+        }
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         Places.initialize(getApplicationContext(), getString(R.string.map_key));
@@ -279,7 +284,7 @@ public class Driving extends FragmentActivity implements OnMapReadyCallback {
         int month = Calendar.getInstance().get(Calendar.MONTH);
         int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
         int year = Calendar.getInstance().get(Calendar.YEAR);
-        String date_string =  month + "/" + day + "/" + year;
+        String date_string =  (month + 1) + "/" + day + "/" + year;
         //intent.putExtra("time", String.valueOf(mins_string));
         //intent.putExtra("date", (month + 1) + "/" + day + "/" + year);
         //intent.putExtra("mileage", String.valueOf(mileage));
@@ -314,13 +319,13 @@ public class Driving extends FragmentActivity implements OnMapReadyCallback {
 
     }
 
-    public void startChronometer(View view) {
+    /*public void startChronometer(View view) {
         if (!running) {
             chronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
             chronometer.start();
             running = true;
         }
-    }
+    }*/
 
     public void pauseChronometer(View view) {
         if (running) {
