@@ -9,16 +9,23 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Chronometer;
+
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+
+import android.widget.EditText;
+
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,15 +37,22 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Lifecycle;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApi;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -46,15 +60,25 @@ import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.net.PlacesClient;
 
 import java.io.IOException;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
+
+import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Set;
+//just suppresses dashed line on depricated methods and fields
+@SuppressWarnings("deprecation")
+public class Driving extends FragmentActivity implements OnMapReadyCallback, LocationListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
+    Location mLocation;
+    Marker mCurrentLocationMarker;
+    GoogleApiClient mGoogleApiClient;
+    LocationRequest mLocationRequest;
 
-public class Driving extends FragmentActivity implements OnMapReadyCallback {
     private Chronometer chronometer;
     private long pauseOffset;
     public boolean running;
@@ -84,14 +108,20 @@ public class Driving extends FragmentActivity implements OnMapReadyCallback {
     private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
 
+
     LinearLayout linearLayout;
     int id = 1;
+
+    //widgets
+    private EditText mSearchText;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.driving);
         chronometer = findViewById(R.id.chronometer);
+
         sharedPreferences = getSharedPreferences(SHAREDPREF_TAG, MODE_PRIVATE);
 
         testView = findViewById(R.id.test_input);
@@ -106,6 +136,10 @@ public class Driving extends FragmentActivity implements OnMapReadyCallback {
             chronometer.start();
             running = true;
         }
+
+        //mSearchText = (EditText) findViewById(R.id.input_search);
+        //init();
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         Places.initialize(getApplicationContext(), getString(R.string.map_key));
@@ -120,20 +154,6 @@ public class Driving extends FragmentActivity implements OnMapReadyCallback {
             //locationListener.onLocationChanged(lastKnownLocation);
         }
     }
-
-    /*LocationListener locationListener = new LocationListener() {
-        @Override
-        public void onLocationChanged(@NonNull Location location) {
-            double newLat = location.getLatitude();
-            double newLong = location.getLongitude();
-            double oldLat = currentLatLng.latitude;
-            double oldLong = currentLatLng.longitude;
-            double miles = Math.abs(distance(newLat, newLong, oldLat, oldLong));
-            totalMiles += miles;
-            //mileage.setText("" + totalMiles);
-            currentLatLng = new LatLng(newLat, newLong);
-        }
-    };
 
     private double distance(double lat1, double lon1, double lat2, double lon2) {
         double theta = lon1 - lon2;
@@ -154,7 +174,7 @@ public class Driving extends FragmentActivity implements OnMapReadyCallback {
 
     private double rad2deg(double rad) {
         return (rad * 180.0 / Math.PI);
-    }*/
+    }
 
     private void updateLogText() {
         testView.setText("Test values");
@@ -338,8 +358,75 @@ public class Driving extends FragmentActivity implements OnMapReadyCallback {
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         map = googleMap;
-        updateLocationUI();
-        getDeviceLocation();
+        //check what version os android user phone is running on
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
+            //checking if "ACCESS_FINE_LOCATION" permission is granted or not on user phone
+            // checks if version has permission to track location
+            if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)==PackageManager.PERMISSION_GRANTED){
+                //if granted
+                buildGoogleApiClient();
+                map.setMyLocationEnabled(true);
+            }
+        }else{
+            //if not granted, ask for permission
+            //for now code is not going to ask for permission
+            //will deal with later
+            buildGoogleApiClient();
+            map.setMyLocationEnabled(true);
+        }
+
+    }
+
+    protected synchronized void buildGoogleApiClient(){
+        mGoogleApiClient = new GoogleApiClient.Builder(this).addConnectionCallbacks(this).addOnConnectionFailedListener(this).addApi(LocationServices.API).build();
+        mGoogleApiClient.connect();
+
+    }
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(1000);
+        mLocationRequest.setFastestInterval(1000);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
+            //checking if "ACCESS_FINE_LOCATION" permission is granted or not on user phone
+            // checks if version has permission to track location
+            if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)==PackageManager.PERMISSION_GRANTED){
+                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+
+            }
+        }else{
+
+        }
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    //method changes location
+    public void onLocationChanged(@NonNull Location location) {
+        mLocation = location;
+        //if theres a pre-existing marker at past location remove it
+        if(mCurrentLocationMarker != null){
+            mCurrentLocationMarker.remove();
+        }
+        //and change the marker to the current location
+        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(latLng);
+        markerOptions.title("My current location");
+        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+        mCurrentLocationMarker = map.addMarker(markerOptions);
+
     }
 }
 
