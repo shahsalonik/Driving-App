@@ -309,9 +309,9 @@ public class Driving extends FragmentActivity implements OnMapReadyCallback, Loc
         //intent.putExtra("date", (month + 1) + "/" + day + "/" + year);
         //intent.putExtra("mileage", String.valueOf(mileage));
         String mileage_string = (String) mileage.getText().subSequence(14, mileage.getText().length());
-        String final_string = date_string + "\t " + id + "\t " + mins_string + "\t " + mileage_string;
-        intent.putExtra("row", final_string);
+        String final_string = date_string + "         " + id + "                               " + mins_string + "                   " + mileage_string;
         id++;
+        intent.putExtra("row", final_string);
         //String.valueOf(chronometer.getBase())
         dataList.add(final_string);
         editor.putString(String.valueOf(id), final_string);
