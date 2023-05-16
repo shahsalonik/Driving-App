@@ -111,6 +111,8 @@ public class Driving extends FragmentActivity implements OnMapReadyCallback, Loc
 
     LinearLayout linearLayout;
     int id = 1;
+    int countupdates;
+    double lat1, lon1, lat2, lon2, distance;
 
     //widgets
     private EditText mSearchText;
@@ -121,6 +123,7 @@ public class Driving extends FragmentActivity implements OnMapReadyCallback, Loc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.driving);
         chronometer = findViewById(R.id.chronometer);
+        distance = 0;
 
         sharedPreferences = getSharedPreferences(SHAREDPREF_TAG, MODE_PRIVATE);
 
@@ -153,19 +156,6 @@ public class Driving extends FragmentActivity implements OnMapReadyCallback, Loc
             //currentLatLng = new LatLng(currentLat, currentLong);
             //locationListener.onLocationChanged(lastKnownLocation);
         }
-    }
-
-    private double distance(double lat1, double lon1, double lat2, double lon2) {
-        double theta = lon1 - lon2;
-        double dist = Math.sin(deg2rad(lat1))
-                * Math.sin(deg2rad(lat2))
-                + Math.cos(deg2rad(lat1))
-                * Math.cos(deg2rad(lat2))
-                * Math.cos(deg2rad(theta));
-        dist = Math.acos(dist);
-        dist = rad2deg(dist);
-        dist = dist * 60 * 1.1515;
-        return (dist);
     }
 
     private double deg2rad(double deg) {
@@ -308,9 +298,12 @@ public class Driving extends FragmentActivity implements OnMapReadyCallback, Loc
         //intent.putExtra("time", String.valueOf(mins_string));
         //intent.putExtra("date", (month + 1) + "/" + day + "/" + year);
         //intent.putExtra("mileage", String.valueOf(mileage));
+        DecimalFormat mf = new DecimalFormat("###.##");
         String mileage_string = (String) mileage.getText().subSequence(14, mileage.getText().length());
-        String final_string = date_string + "         " + id + "                               " + mins_string + "                   " + mileage_string;
-        id++;
+        float miles_driven_total = (float) (Float.parseFloat(mileage_string) / 1609.0);
+        mileage_string = df.format(miles_driven_total);
+        String final_string = date_string + "         " + id + "                               " + mins_string + "                 " + mileage_string;
+        id += id;
         intent.putExtra("row", final_string);
         //String.valueOf(chronometer.getBase())
         dataList.add(final_string);
@@ -412,6 +405,17 @@ public class Driving extends FragmentActivity implements OnMapReadyCallback, Loc
 
     }
 
+    public double measureDistance(Double lat1, Double lat2, Double lon1, Double lon2){//custom method that calculates distance between two points
+        //formula found on the web
+        final int R = 6371; // Radius of the earth
+        double latDistance = Math.toRadians(lat2 - lat1);
+        double lonDistance = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2) + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double distance = R * c * 1000 / 1609; // convert to miles
+        return distance;
+    }
+
     @Override
     //method changes location
     public void onLocationChanged(@NonNull Location location) {
@@ -427,6 +431,31 @@ public class Driving extends FragmentActivity implements OnMapReadyCallback, Loc
         markerOptions.title("My current location");
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
         mCurrentLocationMarker = map.addMarker(markerOptions);
+
+        if(countupdates == 0) {//If the counter is 0 which means it is the first time that the location has changed
+            lat1 = location.getLatitude();//the coordinates are saved
+            lon1 = location.getLongitude();
+            distance = 0;//I initialize the distance
+            //alt1 = location.getAltitude();//this would also save the altitude
+            countupdates +=1;
+        }
+        else if (countupdates == 5){//if the location has changed 5 times (I choose 5 times nad not 0 in order for the calculations to be less)
+            lat2 = location.getLatitude();//the coordinates are saved
+            lon2 = location.getLongitude();
+            //alt2 = location.getAltitude();
+            distance = distance + measureDistance(lat1, lat2, lon1, lon2);//I calculate the distance between two points through my custom method measureDistance
+            mileage.setText("" + distance);
+            countupdates = 0;
+        }
+        else{
+            lat2 = location.getLatitude();
+            lon2 = location.getLongitude();
+            distance = distance + measureDistance(lat1, lat2, lon1, lon2);//i calculate the distance travelled
+            mileage.setText("" + distance);
+            lat1 = lat2;
+            lon1 = lon2;
+            countupdates +=1;
+        }
 
     }
 }
