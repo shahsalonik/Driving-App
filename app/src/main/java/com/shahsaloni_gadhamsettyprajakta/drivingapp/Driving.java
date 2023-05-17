@@ -300,7 +300,7 @@ public class Driving extends FragmentActivity implements OnMapReadyCallback, Loc
         //intent.putExtra("mileage", String.valueOf(mileage));
         DecimalFormat mf = new DecimalFormat("###.##");
         String mileage_string = (String) mileage.getText().subSequence(14, mileage.getText().length());
-        float miles_driven_total = (float) (Float.parseFloat(mileage_string) / 1609.0);
+        float miles_driven_total = (float) (Float.parseFloat(mileage_string) / 16090000.0);
         mileage_string = df.format(miles_driven_total);
         String final_string = date_string + "         " + id + "                               " + mins_string + "                 " + mileage_string;
         id += id;
