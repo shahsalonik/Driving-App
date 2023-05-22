@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:name="com.google.android.gms.maps.SupportMapFragment"
-        tools:context="com.shahsaloni_gadhamsettyprajakta.drivingapp.Driving"/>
+        tools:context="com.shahsaloni_gadhamsettyprajakta.d  jrivingapp.Driving"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/vertical1"
@@ -83,7 +83,30 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias=".95"
-        app:layout_constraintHorizontal_bias=".95"/>
+        app:layout_constraintHorizontal_bias=".95"
+        app:layout_constraintVertical_bias=".95"/>
+
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/relLayout1"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:layout_marginRight="10dp"-->
+<!--        android:layout_marginLeft="10dp"-->
+<!--        android:elevation="10dp"-->
+<!--        android:background="@drawable/white_border"-->
+<!--        tools:ignore="MissingConstraints">-->
+<!--        <EditText-->
+<!--            android:id="@+id/input_search"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:textSize="15sp"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:hint="Enter Address, City, or Zip Code"-->
+<!--            android:imeOptions="actionSearch"/>-->
+<!--    </RelativeLayout>-->
+
 </androidx.constraintlayout.widget.ConstraintLayout>
